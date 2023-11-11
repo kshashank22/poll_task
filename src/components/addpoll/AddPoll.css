@@ -1,0 +1,41 @@
+.addPollContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.pollContainer {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.buttonContainer {
+  text-align: center;
+  margin:10px 0px;
+}
+.addOption {
+  text-align: center;
+  cursor: pointer;
+}
+.close{
+  cursor: pointer;
+}
+.error {
+  width: 285px;
+  height: 40px;
+  border-radius: 5px;
+  padding: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(242, 156, 156);
+  color: rgb(222, 30, 30);
+  margin: 10px 0px;
+}
+.optionsContainer{
+  margin:10px 0px;
+}
+.addText{
+  margin-bottom:5px;
+}

@@ -1,0 +1,60 @@
+* {
+  padding: 0px;
+}
+.listContainer {
+  margin: 10px;
+  padding: 10px;
+  border-radius:15px;
+  list-style: none;
+  font-family: "Arial";
+  background-color: rgb(183, 214, 240);
+  min-width:60vw;
+}
+.titleContainer {
+  min-width: 80vw;
+  border-radius:15px;
+  background-color: rgb(219, 232, 177);
+  display: flex;
+  justify-content: space-between;
+}
+.title {
+  max-width: 40vw;
+  font-size: 25px;
+  text-align: start;
+  padding: 10px;
+  overflow: auto;
+}
+.iconsContainer {
+  display: flex;
+  align-items: center;
+}
+.icons {
+  margin: 0px 10px;
+  cursor: pointer;
+  color: rgb(5, 81, 5);
+}
+.deleteIcon {
+  margin-left: 10px;
+  cursor: pointer;
+}
+.optionContainer {
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
+  border-radius:15px;
+  padding: 10px;
+  margin: 3px 0px;
+  font-size: 18px;
+}
+.option {
+  list-style: none;
+  max-width: 40vw;
+  overflow:auto;
+}
+.voteContainer {
+  display: flex;
+  justify-content: space-between;
+}
+.vote {
+  margin-top: 3px;
+}

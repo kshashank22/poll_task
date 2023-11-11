@@ -1,0 +1,20 @@
+.editContainer{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.editBox{
+    background-color: white;
+    padding:20px;
+    border-radius:5px;
+}
+.textfieldContainer{
+    margin-bottom:15px;
+}
+.text{
+  margin:1px 0px;
+}
+.textUpdate{
+    width:100%;
+}

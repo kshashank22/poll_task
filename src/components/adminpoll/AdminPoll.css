@@ -1,0 +1,47 @@
+* {
+  margin: 0px;
+}
+
+.adminPollContainer {
+  height: 100vh;
+  background-size: cover;
+  background-color: lavender;
+  font-family: "Arial";
+}
+.heading {
+  padding: 10px 0px;
+}
+.adminPollData {
+  max-height: 75%;
+  overflow: auto;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+}
+.errorMessage {
+  text-align: center;
+  font-size: 50px;
+  color: red;
+}
+.loader {
+  text-align: center;
+}
+.addPoll{
+  margin-top: 3px;
+}
+.addIcon{
+  display: flex;
+  justify-content:center;
+  margin-left:70vw;
+  margin-bottom:10px;
+}
+.button{
+  background-color: transparent;
+  border: none;
+  font-size:20px;
+  cursor: pointer;
+  margin:10px 0px;
+}
+.navlink{
+  text-decoration: none;
+}
