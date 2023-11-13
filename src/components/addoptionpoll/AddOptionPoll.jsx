@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { dispatch } from "../../redux/store/store";
 import { useFormik } from "formik";
 import { optionsAdd, resetReducer } from "../../redux/reducers/optionsSlice";
@@ -16,10 +16,12 @@ const AddOptionPoll = () => {
   const { addoptionId } = useParams();
   const location = useLocation();
 
-  if (status) {
-    dispatch(resetReducer());
-    navigate("/adminpoll");
-  }
+  useEffect(() => {
+    if (status) {
+      dispatch(resetReducer());
+      navigate("/adminpoll");
+    }
+  }, [status]);
 
   const formikData = useFormik({
     initialValues: {

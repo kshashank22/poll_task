@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./DataLists.css";
 import { dispatch } from "../../redux/store/store";
 import AddIcon from "@mui/icons-material/Add";
@@ -18,15 +18,19 @@ const DataLists = ({ values, onclick }) => {
   );
   const pollSuccess = useSelector((state) => state.deleteSlice.isSuccess);
 
-  if (optionSuccess) {
-    dispatch(fetchedData());
-    dispatch(resetReducer());
-  }
+  useEffect(() => {
+    if (optionSuccess) {
+      dispatch(fetchedData());
+      dispatch(resetReducer());
+    }
+  }, [optionSuccess]);
 
-  if (pollSuccess) {
-    dispatch(fetchedData());
-    dispatch(resetReducers());
-  }
+  useEffect(() => {
+    if (pollSuccess) {
+      dispatch(fetchedData());
+      dispatch(resetReducers());
+    }
+  }, [pollSuccess]);
 
   const handleDeleteOption = (id, opt) => {
     if (values.options.length < 2) {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { dispatch } from "../../redux/store/store";
 import { TextField, CircularProgress } from "@mui/material";
 import Button from "../button/Button";
@@ -21,8 +21,20 @@ const AddPoll = ({
   const loading = useSelector((state) => state.addPollSlice.isLoading);
   const status = useSelector((state) => state.addPollSlice.isSuccess);
 
+  const [newOptionsList, setNewOptionsList] = useState([]);
   const [error, setError] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (status) {
+      setNewOptions([{ option: "" }]);
+      setNewTitle("");
+      setAddNewPoll(!addNewPoll);
+      dispatch(fetchedData());
+      dispatch(resetReducer());
+      navigate("/adminpoll");
+    }
+  }, [status]);
 
   const handleClick = () => {
     if (newOptions.length > 3) {
@@ -32,22 +44,13 @@ const AddPoll = ({
     }
   };
 
-  const newOptionsList = [];
-
-  if (status) {
-    setNewOptions([{ option: "" }]);
-    setNewTitle("");
-    setAddNewPoll(!addNewPoll);
-    dispatch(fetchedData());
-    dispatch(resetReducer());
-    navigate("/adminpoll");
-  }
-
   const handleSubmit = (event) => {
     event.preventDefault();
     const condition = newOptions.every((each) => each.option !== "");
     if (newTitle !== "" && condition) {
-      newOptions.map((each) => newOptionsList.push(each.option));
+      newOptions.map((each) =>
+        setNewOptionsList(newOptionsList.push(each.option))
+      );
       dispatch(addPoll(newTitle, newOptionsList));
     }
   };
@@ -93,7 +96,7 @@ const AddPoll = ({
 
           {newOptions.map((each, index) => (
             <div key={index} className="optionsContainer">
-              <p className="addText">option {index+1}:</p>
+              <p className="addText">option {index + 1}:</p>
               <TextField
                 className="text"
                 name="option"
@@ -118,7 +121,7 @@ const AddPoll = ({
               <CircularProgress color="inherit" />
             ) : (
               <Button
-                value={"submit"}
+                value={"Submit"}
                 type={"submit"}
                 classname={"buttonStyle"}
                 onclick={handleSubmit}
@@ -127,7 +130,7 @@ const AddPoll = ({
           </div>
           <div className="buttonContainer">
             <Button
-              value={"Back to home"}
+              value={"Back To Home"}
               classname={"buttonStyle"}
               onclick={handleHome}
             />

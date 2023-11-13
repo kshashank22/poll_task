@@ -7,6 +7,7 @@ import EachDataPoll from "../components/eachdatapoll/EachDataPoll";
 import EditPoll from "../components/editpoll/EditPoll";
 import AddOptionPoll from "../components/addoptionpoll/AddOptionPoll";
 import AddPoll from "../components/addpoll/AddPoll";
+import UserPoll from "../components/userpoll/UserPoll";
 
 function AllRoutes() {
   return (
@@ -26,6 +27,7 @@ function AllRoutes() {
         path="/addoption/:addoptionId"
         element={<AddOptionPoll />}
       ></Route>
+      <Route exact path="/userpoll" element={<UserPoll />}></Route>
     </Routes>
   );
 }

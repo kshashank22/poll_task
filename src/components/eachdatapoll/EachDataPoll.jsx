@@ -11,16 +11,6 @@ function EachDataPoll() {
   const status = useSelector((state) => state.eachPollSlice.isLoading);
   const error = useSelector((state) => state.eachPollSlice.isError);
 
-  if (error) {
-    return (
-      <Snackbar
-        open={true}
-        autoHideDuration={6000}
-        message={listItem.message}
-      />
-    );
-  }
-
   return (
     <div className="adminPollContainer">
       <h1 className="heading">Participate In Poll</h1>
@@ -39,6 +29,13 @@ function EachDataPoll() {
           <Button value={"Back"} classname={"buttonStyle"} type={"submit"} />
         </NavLink>
       </div>
+      {error && (
+        <Snackbar
+          open={true}
+          autoHideDuration={6000}
+          message={listItem.message}
+        />
+      )}
     </div>
   );
 }

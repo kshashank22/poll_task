@@ -19,11 +19,13 @@ function LogIn() {
   useEffect(() => {
     if (loginSlice.isSuccess && loginSlice.data.token) {
       const decoded = jwtDecode(loginSlice.data.token);
+      localStorage.setItem("token", loginSlice.data.token);
+      localStorage.setItem("role", decoded.role);
+      dispatch(resetReducer());
       if (decoded.role === "Admin") {
-        const items = [decoded.role, loginSlice.data.token];
-        localStorage.setItem("key", items);
-        dispatch(resetReducer());
         navigate("/adminpoll");
+      } else if (decoded.role === "Guest") {
+        navigate("/userpoll");
       }
     }
   }, [loginSlice.isSuccess]);
@@ -43,10 +45,6 @@ function LogIn() {
     },
     validationSchema: basicSchema,
   });
-
-  if (error) {
-    return <Snackbar open={true} autoHideDuration={6000} message={error} />;
-  }
 
   return (
     <div className="pollPageContainer">
@@ -111,6 +109,9 @@ function LogIn() {
             )}
           </div>
         </form>
+        {error && (
+          <Snackbar open={true} autoHideDuration={6000} message={error} />
+        )}
       </div>
     </div>
   );

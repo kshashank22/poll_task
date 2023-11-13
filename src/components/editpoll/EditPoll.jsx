@@ -8,6 +8,7 @@ import "./EditPoll.css";
 import { titleSchema } from "../../utilities/utilities";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 const EditPoll = () => {
   const loading = useSelector((state) => state.optionsSlice.isLoading);
@@ -16,10 +17,12 @@ const EditPoll = () => {
   const { edittitleId } = useParams();
   const location = useLocation();
 
-  if (status) {
-    dispatch(resetReducer());
-    navigate("/adminpoll");
-  }
+  useEffect(() => {
+    if (status) {
+      dispatch(resetReducer());
+      navigate("/adminpoll");
+    }
+  });
 
   const formikData = useFormik({
     initialValues: {

@@ -26,17 +26,13 @@ function SignUp() {
     validationSchema: basicSchema,
   });
 
-  if (error) {
-    return <Snackbar open={true} autoHideDuration={6000} message={error} />;
-  }
-
   return (
     <div className="pollPageContainer">
       <div className="formContainer">
         <h1>Sign Up</h1>
         <form autoComplete="off" onSubmit={formikData.handleSubmit}>
           <div className="label">
-            <label>UserName</label>
+            <label className="labelText">UserName</label>
             <TextField
               type="text"
               className="text"
@@ -53,7 +49,7 @@ function SignUp() {
             ""
           )}
           <div className="label">
-            <label>Password</label>
+            <label className="labelText">Password</label>
             <TextField
               type="password"
               className="text"
@@ -106,6 +102,9 @@ function SignUp() {
             )}
           </div>
         </form>
+        {error && (
+          <Snackbar open={true} autoHideDuration={6000} message={error} />
+        )}
       </div>
     </div>
   );

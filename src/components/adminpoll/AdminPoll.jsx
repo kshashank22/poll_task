@@ -34,16 +34,6 @@ function AdminPoll() {
     navigate("/eachpoll");
   };
 
-  if (error) {
-    return (
-      <Snackbar
-        open={true}
-        autoHideDuration={6000}
-        message={listItems.message}
-      />
-    );
-  }
-
   return (
     <div className="adminPollContainer">
       <h1 className="heading">Admin Poll</h1>
@@ -77,6 +67,7 @@ function AdminPoll() {
               ))}
             </ul>
           )}
+
           <div className="button">
             <NavLink to="/">
               <Button
@@ -87,6 +78,13 @@ function AdminPoll() {
             </NavLink>
           </div>
         </>
+      )}
+      {error && (
+        <Snackbar
+          open={true}
+          autoHideDuration={6000}
+          message={listItems.message}
+        />
       )}
     </div>
   );
