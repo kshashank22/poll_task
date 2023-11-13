@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "../datalists/DataLists.css";
-import { Radio } from "@mui/material";
 import { dispatch } from "../../redux/store/store";
 import { vote } from "../../redux/reducers/votePollSlice";
 
@@ -8,14 +7,9 @@ const DataLists = ({ values, onclick }) => {
   const [userId, setUserId] = useState(null);
 
   const handleClick = (id, option) => {
-    const token = localStorage.getItem("token");
-    const headers = {
-      access_token: token,
-    };
-    console.log(headers)
-    dispatch(vote(id, option, headers));
+    dispatch(vote(id, option));
     setUserId(id);
-    // alert("Thank you for voting")
+    alert("Thank you for voting");
   };
 
   return (
