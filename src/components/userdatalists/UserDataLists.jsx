@@ -17,6 +17,7 @@ const DataLists = ({ values, onclick }) => {
     };
     dispatch(vote(id, option, header));
     setUserId(id);
+
     toast.success("Thank you for voting", {
       position: "top-center",
       theme: "colored",
@@ -54,5 +55,3 @@ const DataLists = ({ values, onclick }) => {
 };
 
 export default DataLists;
-
-//userOption size="small"

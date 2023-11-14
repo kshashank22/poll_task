@@ -34,6 +34,10 @@ function AdminPoll() {
     navigate("/eachpoll");
   };
 
+  const handleLogout = () => {
+    localStorage.clear();
+  };
+
   return (
     <div className="adminPollContainer">
       <h1 className="heading">Admin Poll</h1>
@@ -74,6 +78,7 @@ function AdminPoll() {
                 value={"Log Out"}
                 classname={"buttonStyle"}
                 type={"submit"}
+                onclick={handleLogout}
               />
             </NavLink>
           </div>

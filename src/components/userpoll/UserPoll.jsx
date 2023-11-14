@@ -17,6 +17,10 @@ function UserPoll() {
     dispatch(fetchedData());
   }, []);
 
+  const handleLogout = () => {
+    localStorage.clear();
+  };
+
   return (
     <div className="adminPollContainer">
       <h1 className="heading">User Poll</h1>
@@ -41,7 +45,12 @@ function UserPoll() {
 
       <div className="button">
         <NavLink to="/">
-          <Button value={"Log Out"} classname={"buttonStyle"} type={"submit"} />
+          <Button
+            value={"Log Out"}
+            classname={"buttonStyle"}
+            type={"submit"}
+            onclick={handleLogout}
+          />
         </NavLink>
       </div>
     </div>
