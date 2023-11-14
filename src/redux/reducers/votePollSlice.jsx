@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import axiosInstance from "../../utilities/voteaxios";
+import axiosInstance from "../../utilities/axios";
 import { dispatch } from "../store/store";
 
 const initialState = {
@@ -38,12 +38,13 @@ const votePollSlice = createSlice({
   },
 });
 
-export function vote(id, option) {
+export function vote(id, option, header) {
   return async () => {
     dispatch(votePollSlice.actions.startLoading());
     try {
       const response = await axiosInstance.get(
         `do_vote?id=${id}&option_text=${option}`,
+        header,
         { id, option }
       );
       dispatch(votePollSlice.actions.loginSuccess(response.data));

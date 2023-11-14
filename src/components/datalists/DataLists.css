@@ -62,3 +62,6 @@
 .vote {
   margin-top: 3px;
 }
+.radio {
+  cursor: pointer;
+}
