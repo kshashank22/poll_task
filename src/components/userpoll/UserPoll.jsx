@@ -6,7 +6,8 @@ import "../adminpoll/AdminPoll.css";
 import UserDataLists from "../userdatalists/UserDataLists";
 import Button from "../button/Button";
 import { NavLink } from "react-router-dom";
-import { CircularProgress, Snackbar, TablePagination } from "@mui/material";
+import { CircularProgress, Snackbar } from "@mui/material";
+import Pagination from "../pagination/Pagination";
 
 function UserPoll() {
   const listItems = useSelector((state) => state.pollSlice.data);
@@ -15,6 +16,7 @@ function UserPoll() {
 
   const [page, setPage] = useState(0);
   const [rowPerPage, setRowPerPage] = useState(5);
+  const [rowsPerPageOption, setRowsPerPageOption] = useState([5, 10, 15]);
 
   useEffect(() => {
     dispatch(fetchedData());
@@ -68,15 +70,14 @@ function UserPoll() {
         </NavLink>
       </div>
       <div className="paginationContainer">
-        <TablePagination
-          component="div"
-          rowsPerPageOptions={[5, 10, 15]}
+        <Pagination
+          rowsPerPageOptions={rowsPerPageOption}
           page={page}
           count={listItems.length}
           rowsPerPage={rowPerPage}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleRowPerPage}
-        ></TablePagination>
+        />
       </div>
     </div>
   );

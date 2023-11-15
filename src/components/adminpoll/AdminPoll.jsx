@@ -8,8 +8,9 @@ import DataLists from "../datalists/DataLists";
 import Button from "../button/Button";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { CircularProgress, Snackbar, TablePagination } from "@mui/material";
+import { CircularProgress, Snackbar } from "@mui/material";
 import AddPoll from "../addpoll/AddPoll";
+import Pagination from "../pagination/Pagination";
 
 function AdminPoll() {
   const listItems = useSelector((state) => state.pollSlice.data);
@@ -22,6 +23,7 @@ function AdminPoll() {
   const [newOptions, setNewOptions] = useState([{ option: "" }]);
   const [page, setPage] = useState(0);
   const [rowPerPage, setRowPerPage] = useState(5);
+  const [rowsPerPageOption, setRowsPerPageOption] = useState([5, 10, 15]);
 
   useEffect(() => {
     dispatch(fetchedData());
@@ -105,15 +107,14 @@ function AdminPoll() {
         />
       )}
       <div className="paginationContainer">
-        <TablePagination
-          component="div"
-          rowsPerPageOptions={[5, 10, 15]}
+        <Pagination
+          rowsPerPageOptions={rowsPerPageOption}
           page={page}
           count={listItems.length}
           rowsPerPage={rowPerPage}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleRowPerPage}
-        ></TablePagination>
+        />
       </div>
     </div>
   );
