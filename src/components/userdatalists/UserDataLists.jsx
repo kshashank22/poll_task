@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import "../datalists/DataLists.css";
 import { dispatch } from "../../redux/store/store";
 import { vote } from "../../redux/reducers/votePollSlice";
@@ -7,6 +7,14 @@ import "react-toastify/dist/ReactToastify.css";
 
 const DataLists = ({ values, onclick }) => {
   const [userId, setUserId] = useState(null);
+  // const [disble, setDisable] = useState(false);
+
+  // useEffect(() => {
+  //   const validation = localStorage.getItem(`${values._id}`);
+  //   if (validation) {
+  //     setDisable(true);
+  //   }
+  // }, [userId]);
 
   const handleClick = (id, option) => {
     const token = localStorage.getItem("token");
@@ -17,7 +25,7 @@ const DataLists = ({ values, onclick }) => {
     };
     dispatch(vote(id, option, header));
     setUserId(id);
-
+    //localStorage.setItem(`${id}`, true);
     toast.success("Thank you for voting", {
       position: "top-center",
       theme: "colored",
@@ -55,3 +63,5 @@ const DataLists = ({ values, onclick }) => {
 };
 
 export default DataLists;
+
+//userOption size="small"
