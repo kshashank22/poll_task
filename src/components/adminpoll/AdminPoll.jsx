@@ -8,7 +8,7 @@ import DataLists from "../datalists/DataLists";
 import Button from "../button/Button";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { CircularProgress, Snackbar } from "@mui/material";
+import { CircularProgress, Snackbar, TablePagination } from "@mui/material";
 import AddPoll from "../addpoll/AddPoll";
 
 function AdminPoll() {
@@ -20,6 +20,8 @@ function AdminPoll() {
   const [addNewPoll, setAddNewPoll] = useState(false);
   const [newTitle, setNewTitle] = useState("");
   const [newOptions, setNewOptions] = useState([{ option: "" }]);
+  const [page, setPage] = useState(0);
+  const [rowPerPage, setRowPerPage] = useState(5);
 
   useEffect(() => {
     dispatch(fetchedData());
@@ -36,6 +38,15 @@ function AdminPoll() {
 
   const handleLogout = () => {
     localStorage.clear();
+  };
+
+  const handleChangePage = (event, updatePage) => {
+    setPage(updatePage);
+  };
+
+  const handleRowPerPage = (event) => {
+    setRowPerPage(+event.target.value);
+    setPage(0);
   };
 
   return (
@@ -62,13 +73,15 @@ function AdminPoll() {
             </div>
           ) : (
             <ul className="adminPollData">
-              {listItems.map((each) => (
-                <DataLists
-                  key={each._id}
-                  values={each}
-                  onclick={() => handleEachItem(each._id)}
-                />
-              ))}
+              {listItems
+                .slice(page * rowPerPage, page * rowPerPage + rowPerPage)
+                .map((each) => (
+                  <DataLists
+                    key={each._id}
+                    values={each}
+                    onclick={() => handleEachItem(each._id)}
+                  />
+                ))}
             </ul>
           )}
 
@@ -91,6 +104,17 @@ function AdminPoll() {
           message={listItems.message}
         />
       )}
+      <div className="paginationContainer">
+        <TablePagination
+          component="div"
+          rowsPerPageOptions={[5, 10, 15]}
+          page={page}
+          count={listItems.length}
+          rowsPerPage={rowPerPage}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleRowPerPage}
+        ></TablePagination>
+      </div>
     </div>
   );
 }
