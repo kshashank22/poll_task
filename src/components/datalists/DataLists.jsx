@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./DataLists.css";
 import { dispatch } from "../../redux/store/store";
 import AddIcon from "@mui/icons-material/Add";
@@ -7,31 +7,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { deleteOption } from "../../redux/reducers/deleteOptionSlice";
 import { deletePoll } from "../../redux/reducers/deleteSlice";
 import { NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { fetchedData } from "../../redux/reducers/pollSlice";
-import { resetReducer } from "../../redux/reducers/deleteOptionSlice";
-import { resetReducers } from "../../redux/reducers/deleteSlice";
 
 const DataLists = ({ values, onclick }) => {
-  const optionSuccess = useSelector(
-    (state) => state.deleteOptionSlice.isSuccess
-  );
-  const pollSuccess = useSelector((state) => state.deleteSlice.isSuccess);
-
-  useEffect(() => {
-    if (optionSuccess) {
-      dispatch(fetchedData());
-      dispatch(resetReducer());
-    }
-  }, [optionSuccess]);
-
-  useEffect(() => {
-    if (pollSuccess) {
-      dispatch(fetchedData());
-      dispatch(resetReducers());
-    }
-  }, [pollSuccess]);
-
   const handleDeleteOption = (id, opt) => {
     if (values.options.length < 2) {
       dispatch(deletePoll(id));

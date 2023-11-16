@@ -11,11 +11,17 @@ import { useNavigate } from "react-router-dom";
 import { CircularProgress, Snackbar } from "@mui/material";
 import AddPoll from "../addpoll/AddPoll";
 import Pagination from "../pagination/Pagination";
+import { resetReducer } from "../../redux/reducers/deleteOptionSlice";
+import { resetReducers } from "../../redux/reducers/deleteSlice";
 
 function AdminPoll() {
   const listItems = useSelector((state) => state.pollSlice.data);
   const status = useSelector((state) => state.pollSlice.isLoading);
   const error = useSelector((state) => state.pollSlice.isError);
+  const deleteOptionSuccess = useSelector(
+    (state) => state.deleteOptionSlice.isSuccess
+  );
+  const deleteSuccess = useSelector((state) => state.deleteSlice.isSuccess);
   const navigate = useNavigate();
 
   const [addNewPoll, setAddNewPoll] = useState(false);
@@ -32,6 +38,20 @@ function AdminPoll() {
   };
 
   const [rowPerPage, setRowPerPage] = useState(row());
+
+  useEffect(() => {
+    if (deleteOptionSuccess) {
+      dispatch(fetchedData());
+      dispatch(resetReducer());
+    }
+  }, [deleteOptionSuccess]);
+
+  useEffect(() => {
+    if (deleteSuccess) {
+      dispatch(fetchedData());
+      dispatch(resetReducers());
+    }
+  }, [deleteSuccess]);
 
   useEffect(() => {
     dispatch(fetchedData());
