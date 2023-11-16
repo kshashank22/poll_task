@@ -20,7 +20,15 @@ function UserPoll() {
 
   useEffect(() => {
     dispatch(fetchedData());
+    const data = JSON.parse(localStorage.getItem("page"));
+    if (data) {
+      setPage(parseInt(data));
+    }
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem("page", page);
+  }, [page]);
 
   const handleLogout = () => {
     localStorage.clear();
@@ -72,8 +80,8 @@ function UserPoll() {
       <div className="paginationContainer">
         <Pagination
           rowsPerPageOptions={rowsPerPageOption}
-          page={page}
           count={listItems.length}
+          page={!listItems.length || listItems.length <= 0 ? 0 : page}
           rowsPerPage={rowPerPage}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleRowPerPage}
