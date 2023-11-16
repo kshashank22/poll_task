@@ -22,8 +22,16 @@ function AdminPoll() {
   const [newTitle, setNewTitle] = useState("");
   const [newOptions, setNewOptions] = useState([{ option: "" }]);
   const [page, setPage] = useState(0);
-  const [rowPerPage, setRowPerPage] = useState(5);
   const [rowsPerPageOption, setRowsPerPageOption] = useState([5, 10, 15]);
+
+  const row = () => {
+    if (localStorage.getItem("rowpage")) {
+      return JSON.parse(localStorage.getItem("rowpage"));
+    }
+    return 5;
+  };
+
+  const [rowPerPage, setRowPerPage] = useState(row());
 
   useEffect(() => {
     dispatch(fetchedData());
@@ -35,7 +43,8 @@ function AdminPoll() {
 
   useEffect(() => {
     localStorage.setItem("page", page);
-  }, [page]);
+    localStorage.setItem("rowpage", rowPerPage);
+  }, [page, rowPerPage]);
 
   const handleAdd = () => {
     setAddNewPoll(!addNewPoll);
@@ -55,7 +64,7 @@ function AdminPoll() {
   };
 
   const handleRowPerPage = (event) => {
-    setRowPerPage(+event.target.value);
+    setRowPerPage(event.target.value);
     setPage(0);
   };
 
