@@ -1,13 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { TextField, CircularProgress, Snackbar } from "@mui/material";
 import "../../components/login/LogIn.css";
 import { useFormik } from "formik";
 import { basicSchema } from "../../utilities/utilities";
 import { dispatch } from "../../redux/store/store";
-import { signup } from "../../redux/reducers/signupSlice";
+import { signup, resetReducer } from "../../redux/reducers/signupSlice";
 import { v4 as uuidv4 } from "uuid";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Button from "../button/Button";
 
 function SignUp() {
@@ -15,13 +15,23 @@ function SignUp() {
   const status = useSelector((state) => state.signupSlice.isLoading);
   const error = useSelector((state) => state.signupSlice.isError);
 
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (signupSlice.isSuccess && !signupSlice.data.message) {
+      alert("Successfully Signed Up");
+      navigate("/");
+      dispatch(resetReducer());
+    }
+  }, [signupSlice.isSuccess]);
+
   const formikData = useFormik({
     initialValues: { id: uuidv4(), username: "", password: "", role: "Guest" },
-    onSubmit: (values, actions) => {
+    onSubmit: (values) => {
       try {
         dispatch(signup(values));
       } catch (error) {}
-      actions.resetForm();
+      dispatch(resetReducer());
     },
     validationSchema: basicSchema,
   });

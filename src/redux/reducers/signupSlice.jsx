@@ -29,6 +29,12 @@ const signupSlice = createSlice({
       state.isSuccess = false;
       state.data = { ...action.payload };
     },
+    resetReducer(state) {
+      state.isError = false;
+      state.isLoading = false;
+      state.isSuccess = false;
+      state.data = {};
+    },
   },
 });
 
@@ -47,5 +53,6 @@ export function signup(payload) {
   };
 }
 
-export const { startLoading, hasError, loginSuccess } = signupSlice.actions;
+export const { startLoading, hasError, loginSuccess, resetReducer } =
+  signupSlice.actions;
 export default signupSlice.reducer;
