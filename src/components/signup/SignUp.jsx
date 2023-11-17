@@ -17,6 +17,10 @@ function SignUp() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    dispatch(signup());
+  }, []);
+
+  useEffect(() => {
     if (signupSlice.isSuccess && !signupSlice.data.message) {
       alert("Successfully Signed Up");
       navigate("/");

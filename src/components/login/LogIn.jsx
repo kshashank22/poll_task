@@ -17,6 +17,10 @@ function LogIn() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    dispatch(login());
+  }, []);
+
+  useEffect(() => {
     if (loginSlice.isSuccess && loginSlice.data.token) {
       const decoded = jwtDecode(loginSlice.data.token);
       localStorage.setItem("token", loginSlice.data.token);
