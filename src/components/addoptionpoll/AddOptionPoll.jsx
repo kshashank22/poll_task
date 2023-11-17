@@ -1,17 +1,20 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { dispatch } from "../../redux/store/store";
 import { useFormik } from "formik";
 import { optionsAdd, resetReducer } from "../../redux/reducers/optionsSlice";
 import { TextField, CircularProgress } from "@mui/material";
 import Button from "../button/Button";
 import "../editpoll/EditPoll.css";
+import "../addpoll/AddPoll.css";
 import { optionSchema } from "../../utilities/utilities";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+import CloseIcon from "@mui/icons-material/Close";
 
 const AddOptionPoll = () => {
   const loading = useSelector((state) => state.optionsSlice.isLoading);
   const status = useSelector((state) => state.optionsSlice.isSuccess);
+  const [error, setError] = useState(false);
   const navigate = useNavigate();
   const { addoptionId } = useParams();
   const location = useLocation();
@@ -29,7 +32,13 @@ const AddOptionPoll = () => {
     },
     onSubmit: (values) => {
       try {
-        dispatch(optionsAdd(values, addoptionId));
+        if (
+          location.state.options.map((e) => e.option).includes(values.option)
+        ) {
+          setError(true);
+        } else {
+          dispatch(optionsAdd(values, addoptionId));
+        }
       } catch (error) {}
     },
     validationSchema: optionSchema,
@@ -37,6 +46,10 @@ const AddOptionPoll = () => {
 
   const handleHome = () => {
     navigate("/adminpoll");
+  };
+
+  const handleClose = () => {
+    setError(false);
   };
 
   return (
@@ -48,7 +61,7 @@ const AddOptionPoll = () => {
             <TextField
               className="textUpdate"
               type="text"
-              value={location.state}
+              value={location.state.title}
               disabled
             />
           </div>
@@ -64,22 +77,34 @@ const AddOptionPoll = () => {
             />
           </div>
           <div className="buttonsContainer">
-          <div className="button">
-            <Button
-              value={loading ? <CircularProgress size="1rem" color="inherit" /> : "Submit"}
-              classname={"buttonStyle"}
-              type={"submit"}
-            />
+            <div className="button">
+              <Button
+                value={
+                  loading ? (
+                    <CircularProgress size="1rem" color="inherit" />
+                  ) : (
+                    "Submit"
+                  )
+                }
+                classname={"buttonStyle"}
+                type={"submit"}
+              />
+            </div>
+            <div className="button">
+              <Button
+                value={"Back To Home"}
+                classname={"buttonStyle"}
+                type={"button"}
+                onclick={handleHome}
+              />
+            </div>
           </div>
-          <div className="button">
-            <Button
-              value={"Back To Home"}
-              classname={"buttonStyle"}
-              type={"button"}
-              onclick={handleHome}
-            />
-          </div>
-          </div>
+          {error && (
+            <div className="error">
+              <p>Duplicate option is not allowed</p>
+              <CloseIcon className="close" onClick={handleClose} />
+            </div>
+          )}
         </form>
       </div>
     </div>

@@ -23,6 +23,7 @@ const AddPoll = ({
 
   const [newOptionsList, setNewOptionsList] = useState([]);
   const [error, setError] = useState(false);
+  const [optionError, setOptionError] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -46,19 +47,25 @@ const AddPoll = ({
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    const data = newOptions.map((e) => e.option);
+    const setData = [...new Set(data)];
     const condition = newOptions.every((each) => each.option !== "");
-    if (newTitle !== "" && condition) {
-      newOptions.map((each) =>
-        setNewOptionsList(newOptionsList.push(each.option))
-      );
-      dispatch(addPoll(newTitle, newOptionsList));
+    if (data.length === setData.length) {
+      if (newTitle !== "" && condition) {
+        newOptions.map((each) =>
+          setNewOptionsList(newOptionsList.push(each.option))
+        );
+        dispatch(addPoll(newTitle, newOptionsList));
+      }
+    } else {
+      setOptionError(true);
     }
   };
 
   const handleChange = (event, index) => {
     const { name, value } = event.target;
     const onChangeValue = [...newOptions];
-    onChangeValue[index][name] = value;
+    onChangeValue[index][name] = value.trim();
     setNewOptions(onChangeValue);
   };
 
@@ -70,6 +77,10 @@ const AddPoll = ({
 
   const handleClose = () => {
     setError(false);
+  };
+
+  const handleCloseOption = () => {
+    setOptionError(false);
   };
 
   const handleHome = () => {
@@ -137,6 +148,12 @@ const AddPoll = ({
               onclick={handleHome}
             />
           </div>
+          {optionError && (
+            <div className="error">
+              <p>Duplicate option is not allowed!!</p>
+              <CloseIcon className="close" onClick={handleCloseOption} />
+            </div>
+          )}
         </form>
       </div>
     </div>

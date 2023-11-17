@@ -18,7 +18,6 @@ const DataLists = ({ values, onclick }) => {
 
   const [deleteId, setDeleteId] = useState(null);
   const [deleteOptionId, setDeleteOptionId] = useState(null);
-
   const handleDeleteOption = (id, opt, i) => {
     if (values.options.length < 2) {
       setDeleteId(id);
@@ -42,14 +41,13 @@ const DataLists = ({ values, onclick }) => {
         </h1>
         <div className="iconsContainer">
           {values.options.length < 4 && (
-            <NavLink to={`/addoption/${values._id}`} state={values.title}>
+            <NavLink to={`/addoption/${values._id}`} state={values}>
               <AddIcon className="icons" />
             </NavLink>
           )}
           <NavLink to={`/edittitle/${values._id}`} state={values.title}>
             <EditIcon className="icons" />
           </NavLink>
-
           {deleteLoading && deleteId ? (
             <CircularProgress size="1rem" color="inherit" />
           ) : (
