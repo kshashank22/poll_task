@@ -13,6 +13,7 @@ import AddPoll from "../addpoll/AddPoll";
 import Pagination from "../pagination/Pagination";
 import { resetReducer } from "../../redux/reducers/deleteOptionSlice";
 import { resetReducers } from "../../redux/reducers/deleteSlice";
+import Backdrop from "@mui/material/Backdrop";
 
 function AdminPoll() {
   const listItems = useSelector((state) => state.pollSlice.data);
@@ -28,6 +29,7 @@ function AdminPoll() {
   const [newTitle, setNewTitle] = useState("");
   const [newOptions, setNewOptions] = useState([{ option: "" }]);
   const [page, setPage] = useState(0);
+
   const [rowsPerPageOption, setRowsPerPageOption] = useState([5, 10, 15]);
 
   const row = () => {
@@ -108,7 +110,15 @@ function AdminPoll() {
         <>
           {status ? (
             <div className="loader">
-              <CircularProgress color="inherit" />
+              <Backdrop
+                sx={{
+                  color: "#fff",
+                  zIndex: (theme) => theme.zIndex.drawer + 1,
+                }}
+                open={true}
+              >
+                <CircularProgress size="1rem" color="inherit" />
+              </Backdrop>
             </div>
           ) : (
             <ul className="adminPollData">

@@ -8,6 +8,7 @@ import Button from "../button/Button";
 import { NavLink } from "react-router-dom";
 import { CircularProgress, Snackbar } from "@mui/material";
 import Pagination from "../pagination/Pagination";
+import Backdrop from "@mui/material/Backdrop";
 
 function UserPoll() {
   const listItems = useSelector((state) => state.pollSlice.data);
@@ -57,7 +58,15 @@ function UserPoll() {
       <h1 className="heading">User Poll</h1>
       {status ? (
         <div className="loader">
-          <CircularProgress color="inherit" />
+          <Backdrop
+            sx={{
+              color: "#fff",
+              zIndex: (theme) => theme.zIndex.drawer + 1,
+            }}
+            open={true}
+          >
+            <CircularProgress size="1rem" color="inherit" />
+          </Backdrop>
         </div>
       ) : (
         <ul className="adminPollData">
@@ -79,7 +88,13 @@ function UserPoll() {
       <div className="button">
         <NavLink to="/">
           <Button
-            value={"Log Out"}
+            value={
+              status ? (
+                <CircularProgress size="1rem" color="inherit" />
+              ) : (
+                "Log Out"
+              )
+            }
             classname={"buttonStyle"}
             type={"submit"}
             onclick={handleLogout}

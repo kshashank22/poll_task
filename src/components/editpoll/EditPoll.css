@@ -18,3 +18,9 @@
 .textUpdate{
     width:100%;
 }
+.buttonsContainer{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

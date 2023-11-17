@@ -5,6 +5,7 @@ import DataLists from "../datalists/DataLists";
 import Button from "../button/Button";
 import { NavLink } from "react-router-dom";
 import { CircularProgress, Snackbar } from "@mui/material";
+import Backdrop from "@mui/material/Backdrop";
 
 function EachDataPoll() {
   const listItem = useSelector((state) => state.eachPollSlice.data);
@@ -16,7 +17,15 @@ function EachDataPoll() {
       <h1 className="heading">Participate In Poll</h1>
       {status ? (
         <div className="loader">
-          <CircularProgress color="inherit" />
+          <Backdrop
+            sx={{
+              color: "#fff",
+              zIndex: (theme) => theme.zIndex.drawer + 1,
+            }}
+            open={true}
+          >
+            <CircularProgress size="1rem" color="inherit" />
+          </Backdrop>
         </div>
       ) : (
         <ul className="adminPollData">

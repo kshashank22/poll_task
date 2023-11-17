@@ -117,16 +117,18 @@ const AddPoll = ({
           )}
 
           <div className="buttonContainer">
-            {loading ? (
-              <CircularProgress color="inherit" />
-            ) : (
-              <Button
-                value={"Submit"}
-                type={"submit"}
-                classname={"buttonStyle"}
-                onclick={handleSubmit}
-              />
-            )}
+            <Button
+              value={
+                loading ? (
+                  <CircularProgress size="1rem" color="inherit" />
+                ) : (
+                  "Submit"
+                )
+              }
+              type={"submit"}
+              classname={"buttonStyle"}
+              onclick={handleSubmit}
+            />
           </div>
           <div className="buttonContainer">
             <Button

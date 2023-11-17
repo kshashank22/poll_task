@@ -54,24 +54,28 @@ const EditPoll = () => {
               onChange={formikData.handleChange}
             />
           </div>
-          <div className="button">
-            {loading ? (
-              <CircularProgress color="inherit" />
-            ) : (
+          <div className="buttonsContainer">
+            <div className="button">
               <Button
-                value={"Submit"}
+                value={
+                  loading ? (
+                    <CircularProgress size="1rem" color="inherit" />
+                  ) : (
+                    "Submit"
+                  )
+                }
                 classname={"buttonStyle"}
                 type={"submit"}
               />
-            )}
-          </div>
-          <div className="button">
-            <Button
-              value={"Back To Home"}
-              classname={"buttonStyle"}
-              type={"button"}
-              onclick={handleHome}
-            />
+            </div>
+            <div className="button">
+              <Button
+                value={"Back To Home"}
+                classname={"buttonStyle"}
+                type={"button"}
+                onclick={handleHome}
+              />
+            </div>
           </div>
         </form>
       </div>

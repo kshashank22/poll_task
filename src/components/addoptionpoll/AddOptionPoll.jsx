@@ -63,16 +63,13 @@ const AddOptionPoll = () => {
               onChange={formikData.handleChange}
             />
           </div>
+          <div className="buttonsContainer">
           <div className="button">
-            {loading ? (
-              <CircularProgress color="inherit" />
-            ) : (
-              <Button
-                value={"Submit"}
-                classname={"buttonStyle"}
-                type={"submit"}
-              />
-            )}
+            <Button
+              value={loading ? <CircularProgress size="1rem" color="inherit" /> : "Submit"}
+              classname={"buttonStyle"}
+              type={"submit"}
+            />
           </div>
           <div className="button">
             <Button
@@ -81,6 +78,7 @@ const AddOptionPoll = () => {
               type={"button"}
               onclick={handleHome}
             />
+          </div>
           </div>
         </form>
       </div>

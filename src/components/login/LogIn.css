@@ -35,6 +35,9 @@ h1 {
 .error {
   color: red;
 }
+.buttonContainer{
+  text-align: center;
+}
 .buttonStyle {
   background-color: rgb(240, 220, 140);
   padding: 12px 15px;
@@ -44,9 +47,20 @@ h1 {
   border-radius: 10px;
   width: 120px;
 }
+.buttonStyle1{
+  background-color: transparent;
+  border: none;
+  text-decoration: underline;
+}
+.loader{
+  height: 10px;
+  width: 10px;
+}
 .button {
   margin-top: 20px;
   text-align: center;
+  display:flex;
+  flex-direction: column;
 }
 .user {
   color: red;
@@ -59,4 +73,8 @@ h1 {
 
 .labelText {
   margin-bottom: 5px;
+}
+.link{
+  font-size: 13px;
+  color: black;
 }
