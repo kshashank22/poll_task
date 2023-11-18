@@ -114,6 +114,7 @@ const AddPoll = ({
                 type="text"
                 value={each.option}
                 onChange={(event) => handleChange(event, index)}
+                error={!each.option}
               />
             </div>
           ))}

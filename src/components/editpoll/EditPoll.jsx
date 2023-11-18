@@ -65,6 +65,7 @@ const EditPoll = () => {
                   )
                 }
                 classname={"buttonStyle"}
+                disabled={!formikData.dirty}
                 type={"submit"}
               />
             </div>

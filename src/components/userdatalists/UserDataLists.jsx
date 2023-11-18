@@ -17,7 +17,6 @@ const DataLists = ({ values, onclick }) => {
     };
     dispatch(vote(id, option, header));
     setUserId(id);
-
     toast.success("Thank you for voting", {
       position: "top-center",
       theme: "colored",
@@ -32,7 +31,6 @@ const DataLists = ({ values, onclick }) => {
           {values.title}
         </h1>
       </div>
-
       <ul className="options">
         {values.options.map((each) => (
           <div key={each.option} className="optionContainer">

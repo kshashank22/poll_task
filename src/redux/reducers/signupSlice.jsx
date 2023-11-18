@@ -29,7 +29,7 @@ const signupSlice = createSlice({
       state.isSuccess = false;
       state.data = { ...action.payload };
     },
-    resetReducer(state) {
+    resetReducers(state) {
       state.isError = false;
       state.isLoading = false;
       state.isSuccess = false;
@@ -53,6 +53,6 @@ export function signup(payload) {
   };
 }
 
-export const { startLoading, hasError, loginSuccess, resetReducer } =
+export const { startLoading, hasError, loginSuccess, resetReducers } =
   signupSlice.actions;
 export default signupSlice.reducer;

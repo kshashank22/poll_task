@@ -1,30 +1,37 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { TextField, CircularProgress, Snackbar } from "@mui/material";
 import "../../components/login/LogIn.css";
 import { useFormik } from "formik";
 import { basicSchema } from "../../utilities/utilities";
 import { dispatch } from "../../redux/store/store";
-import { signup, resetReducer } from "../../redux/reducers/signupSlice";
+import { signup, resetReducers } from "../../redux/reducers/signupSlice";
 import { v4 as uuidv4 } from "uuid";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import Button from "../button/Button";
+import { resetReducer } from "../../redux/reducers/loginSlice";
 
 function SignUp() {
   const signupSlice = useSelector((state) => state.signupSlice);
   const status = useSelector((state) => state.signupSlice.isLoading);
   const error = useSelector((state) => state.signupSlice.isError);
+  const [message, setMessage] = useState("");
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
-    dispatch(signup());
-  }, []);
+    if (location.state) {
+      dispatch(resetReducer());
+    }
+  }, [location.state]);
 
   useEffect(() => {
     if (signupSlice.isSuccess && !signupSlice.data.message) {
       alert("Successfully Signed Up");
       navigate("/");
-      dispatch(resetReducer());
+      dispatch(resetReducers());
+    } else if (signupSlice.data.message) {
+      setMessage(signupSlice.data.message);
     }
   }, [signupSlice.isSuccess]);
 
@@ -35,7 +42,7 @@ function SignUp() {
         dispatch(signup(values));
       } catch (error) {}
       if (status) {
-        dispatch(resetReducer());
+        dispatch(resetReducers());
       }
     },
     validationSchema: basicSchema,
@@ -93,9 +100,7 @@ function SignUp() {
               <option value="Admin">Admin</option>
             </select>
           </div>
-          {!signupSlice.data.token && (
-            <p className="user">{signupSlice.data.message}</p>
-          )}
+          {message && <p className="user">{signupSlice.data.message}</p>}
           <div className="button">
             <div className="buttonContainer">
               <Button
@@ -110,9 +115,11 @@ function SignUp() {
                 type={"submit"}
               />
             </div>
-            <NavLink to="/">
-              <a className="link">Already have account? Login</a>
-            </NavLink>
+            <div>
+              <NavLink to="/" state={message}>
+                <p className="link">Already have account? Login</p>
+              </NavLink>
+            </div>
           </div>
         </form>
         {error && (

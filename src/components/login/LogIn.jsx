@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { dispatch } from "../../redux/store/store";
 import { login, resetReducer } from "../../redux/reducers/loginSlice";
@@ -6,19 +6,24 @@ import { TextField, CircularProgress, Snackbar } from "@mui/material";
 import { useFormik } from "formik";
 import { basicSchema } from "../../utilities/utilities";
 import "./LogIn.css";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import Button from "../button/Button";
 import { jwtDecode } from "jwt-decode";
+import { resetReducers } from "../../redux/reducers/signupSlice";
 
 function LogIn() {
   const loginSlice = useSelector((state) => state.loginSlice);
   const status = useSelector((state) => state.loginSlice.isLoading);
   const error = useSelector((state) => state.loginSlice.isError);
+  const [message, setMessage] = useState("");
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
-    dispatch(login());
-  }, []);
+    if (location.state) {
+      dispatch(resetReducers());
+    }
+  }, [location.state]);
 
   useEffect(() => {
     if (loginSlice.isSuccess && loginSlice.data.token) {
@@ -31,6 +36,8 @@ function LogIn() {
       } else if (decoded.role === "Guest") {
         navigate("/userpoll");
       }
+    } else {
+      setMessage(loginSlice.data.data);
     }
   }, [loginSlice.isSuccess]);
 
@@ -106,9 +113,11 @@ function LogIn() {
                 type={"submit"}
               />
             </div>
-            <NavLink to="/signup">
-              <a className="link">Don't have account?Register now</a>
-            </NavLink>
+            <div>
+              <NavLink to="/signup" state={message}>
+                <p className="link">Don't have account?Register now</p>
+              </NavLink>
+            </div>
           </div>
         </form>
         {error && (
