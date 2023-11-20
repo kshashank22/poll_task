@@ -58,6 +58,24 @@ function UserPoll() {
   return (
     <div className="adminPollContainer">
       <h1 className="heading">User Poll</h1>
+      <div className="addIcon">
+      <div className="button">
+        <NavLink to="/">
+          <Button
+            value={
+              status ? (
+                <CircularProgress size="1rem" color="inherit" />
+              ) : (
+                "Log Out"
+              )
+            }
+            classname={"buttonStyle"}
+            type={"submit"}
+            onclick={handleLogout}
+          />
+        </NavLink>
+      </div>
+      </div>
       {status ? (
         <div className="loader">
           <Backdrop
@@ -91,22 +109,6 @@ function UserPoll() {
         />
       )}
 
-      <div className="button">
-        <NavLink to="/">
-          <Button
-            value={
-              status ? (
-                <CircularProgress size="1rem" color="inherit" />
-              ) : (
-                "Log Out"
-              )
-            }
-            classname={"buttonStyle"}
-            type={"submit"}
-            onclick={handleLogout}
-          />
-        </NavLink>
-      </div>
       <div className="paginationContainer">
         <Pagination
           rowsPerPageOptions={rowsPerPageOption}
