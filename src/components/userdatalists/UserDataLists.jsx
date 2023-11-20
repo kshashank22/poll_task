@@ -4,9 +4,10 @@ import { dispatch } from "../../redux/store/store";
 import { vote } from "../../redux/reducers/votePollSlice";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useSelector } from "react-redux";
 
-const DataLists = ({ values, onclick }) => {
-  const [userId, setUserId] = useState(null);
+const DataLists = ({ values, onclick, setGuestId }) => {
+  const votePoll = useSelector((state) => state.votePollSlice);
 
   const handleClick = (id, option) => {
     const token = localStorage.getItem("token");
@@ -16,7 +17,7 @@ const DataLists = ({ values, onclick }) => {
       },
     };
     dispatch(vote(id, option, header));
-    setUserId(id);
+    setGuestId(id);
     toast.success("Thank you for voting", {
       position: "top-center",
       theme: "colored",
@@ -42,7 +43,7 @@ const DataLists = ({ values, onclick }) => {
                 type="radio"
                 name={values._id}
                 onClick={() => handleClick(values._id, each.option)}
-                disabled={values._id === userId}
+                disabled={JSON.parse(localStorage.getItem(`${values._id}`))}
               />
             </div>
           </div>

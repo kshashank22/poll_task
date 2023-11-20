@@ -17,6 +17,7 @@ function UserPoll() {
 
   const [page, setPage] = useState(0);
   const [rowsPerPageOption, setRowsPerPageOption] = useState([5, 10, 15]);
+  const [guestId, setGuestId] = useState(null);
 
   const row = () => {
     if (localStorage.getItem("rowpage")) {
@@ -38,7 +39,8 @@ function UserPoll() {
   useEffect(() => {
     localStorage.setItem("page", page);
     localStorage.setItem("rowpage", rowPerPage);
-  }, [page, rowPerPage]);
+    localStorage.setItem(`${guestId}`, true);
+  }, [page, rowPerPage, guestId]);
 
   const handleLogout = () => {
     localStorage.clear();
@@ -73,7 +75,11 @@ function UserPoll() {
           {listItems
             .slice(page * rowPerPage, page * rowPerPage + rowPerPage)
             .map((each) => (
-              <UserDataLists key={each._id} values={each} />
+              <UserDataLists
+                key={each._id}
+                values={each}
+                setGuestId={setGuestId}
+              />
             ))}
         </ul>
       )}
